@@ -3,18 +3,18 @@ from transformers import pipeline
 from pydantic import BaseModel
 
 class Item(BaseModel):
-	text: str
+        text: str
 
 
 app = FastAPI()
 classifier = pipeline("translation_en_to_ru",
-			model = "Helsinki-NLP/opus-mt-en-ru")
+                        model = "Helsinki-NLP/opus-mt-en-ru")
 
 
 @app.get("/")
 def root():
-	return{'message': 'Hello word'}
+        return{'message': 'Hello word'}
 
 @app.post("/predict/")
 def predict(item: Item):
-	return classifier(item.text)[0]
+        return classifier(item.text)[0]
